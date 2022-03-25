@@ -71,8 +71,22 @@ class MyGame(arcade.Window):
         self.box2.draw()
 
     def on_update(self, dt):
-        self.box.update()
-        self.box2.update()
+
+        if self.box2.pos_y + self.box.rad == self.box.pos_y + self.box.rad:
+            self.box2.dy = 0
+            self.box2.pos_y = self.box.pos_y + self.box2.rad
+        elif self.box2.pos_y - self.box.rad == self.box.pos_y - self.box.rad:
+            self.box.dy = 0
+            self.box.pos_y = self.box2.pos_y + self.box.rad
+        elif self.box2.pos_x + self.box.rad == self.box.pos_x + self.box.rad:
+            self.box2.dx = 0
+            self.box2.pos_x = self.box.pos_x - self.box2.rad
+        elif self.box2.pos_x - self.box.rad == self.box.pos_x - self.box.rad:
+            self.box.dx = 0
+            self.box.pos_x = self.box2.pos_x - self.box.rad
+        else:
+            self.box.update()
+            self.box2.update()
 
     def on_key_press(self, key, modifiers):
         if key == arcade.key.LEFT:
