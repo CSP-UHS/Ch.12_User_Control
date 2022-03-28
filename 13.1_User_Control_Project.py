@@ -18,9 +18,9 @@ Please type directions for this game here.
 import arcade
 import random
 
-SW = 500
-SH = 500
-SPEED1 = 6
+SW = 800
+SH = 800
+SPEED1 = 10
 SPEED2 = 4    # 3 x 60 = 180 pixels/second
 score = 0
 score2 = 0
@@ -72,16 +72,20 @@ class Ball:
             self.dx *= -1
             self.pos_x = SW/2
             self.score += 1
-            print(self.score, "to", self.score2)
         elif self.pos_x < self.rad:
             self.dx *= -1
             self.pos_x = SW/2
             self.score2 += 1
-            print(self.score, "to", self.score2)
         elif self.pos_y > SH - self.rad:
-            self.dy *= -1
+            if self.dy >= 7:
+                self.dy *= -1
+            else:
+                self.dy *= -1.1
         elif self.pos_y < self.rad:
-            self.dy *= -1
+            if self.dy >= 7:
+                self.dy *= -1
+            else:
+                self.dy *= -1.1
 
 class MyGame(arcade.Window):
     def __init__(self, width, height, title):
@@ -116,11 +120,17 @@ class MyGame(arcade.Window):
 
         #left paddle collision
         if self.ball.pos_x - self.ball.rad <= 30 and (self.ball.pos_y <= self.box.pos_y + 40 and self.ball.pos_y >= self.box.pos_y - 40):
-            self.ball.dx *= -1.1
+            if self.ball.dx >= 7:
+                self.ball.dx *= -1
+            else:
+                self.ball.dx *= -1.1
 
         #right paddle collision
         if self.ball.pos_x + self.ball.rad >= SW-30 and (self.ball.pos_y <= self.box2.pos_y + 40 and self.ball.pos_y >= self.box2.pos_y - 40):
-            self.ball.dx *= -1.1
+            if self.ball.dx >= 7:
+                self.ball.dx *= -1
+            else:
+                self.ball.dx *= -1.1
 
     def on_key_press(self, key, modifiers):
         if key == arcade.key.UP:
