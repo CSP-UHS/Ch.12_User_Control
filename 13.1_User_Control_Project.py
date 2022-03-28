@@ -69,7 +69,7 @@ class Ball:
         self.pos_x += self.dx
         self.pos_y += self.dy
         if self.pos_x > SW - self.rad:
-            self.dy *= -1
+            self.dx *= -1
             self.pos_x = SW/2
             self.score += 1
             print(self.score, "to", self.score2)
@@ -106,6 +106,8 @@ class MyGame(arcade.Window):
         self.box.draw()
         self.box2.draw()
         self.ball.draw()
+        arcade.draw_text(str(self.ball.score), (SW/2) - 80, SH - 100, arcade.color.BRICK_RED, 50)
+        arcade.draw_text(str(self.ball.score2), (SW/2) + 80, SH -100, arcade.color.BLUE, 50)
 
     def on_update(self, dt):
         self.box.update()
@@ -113,11 +115,11 @@ class MyGame(arcade.Window):
         self.ball.update()
 
         #left paddle collision
-        if self.ball.pos_x - self.ball.rad < 30 and (self.ball.pos_y < self.box.pos_y + 40 and self.ball.pos_y > self.box.pos_y - 40):
+        if self.ball.pos_x - self.ball.rad <= 30 and (self.ball.pos_y <= self.box.pos_y + 40 and self.ball.pos_y >= self.box.pos_y - 40):
             self.ball.dx *= -1.1
 
         #right paddle collision
-        if self.ball.pos_x + self.ball.rad > SW-30 and (self.ball.pos_y < self.box2.pos_y + 40 and self.ball.pos_y > self.box2.pos_y - 40):
+        if self.ball.pos_x + self.ball.rad >= SW-30 and (self.ball.pos_y <= self.box2.pos_y + 40 and self.ball.pos_y >= self.box2.pos_y - 40):
             self.ball.dx *= -1.1
 
     def on_key_press(self, key, modifiers):
