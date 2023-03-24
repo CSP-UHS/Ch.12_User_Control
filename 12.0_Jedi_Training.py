@@ -2,7 +2,7 @@
 Sign your name: Tanner Evitts
  
 Update the code in this chapter to do the following:
-Open a 500px by 500px window.
+Open a 500px by 500px window. .
 Change the Ball class to a Box class.
 Instantiate two 30px by 30px boxes. One red and one blue.
 Make the blue box have a speed of 240 pixels/second
